@@ -1,0 +1,30 @@
+---
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Install elasticsearch.
+  package:
+    name: elasticsearch
+    state: present
+
+- name: Ensure elasticsearch is started and enabled at boot.
+  service:
+    name: elasticsearch
+    state: started
+    enabled: true
+
+- name: Copy elasticsearch configuration.
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: '0660'
+
+- name: Copy jvm elasticsearch configuration.
+  template:
+    src: jvm.options.j2
+    dest: /etc/elasticsearch/jvm.options
+    owner: root
+    group: elasticsearch
+    mode: '0660'

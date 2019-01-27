@@ -1,0 +1,26 @@
+---
+- name: Add java repository.
+  apt_repository:
+    repo: ppa:webupd8team/java        
+    state: present
+    update_cache: true
+
+- name: Install java default
+  apt: name=default-jdk state=present
+    
+- name: Install java
+  apt: name=openjdk-8-jdk state=present
+
+- name: Add Elasticsearch apt key.
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+    
+- name: Ensure dependency is installed (Ubuntu).
+  apt: name=apt-transport-https state=present
+  
+- name: Add Elasticsearch repository.
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main        
+    state: present
+    update_cache: true

@@ -1,0 +1,10 @@
+---
+- name: restart newrelic-infra
+  service:
+    name: newrelic-infra
+    state: restarted
+
+#- name: restart newrelic
+#  service:
+#    name: newrelic-sysmond
+#state: restarted

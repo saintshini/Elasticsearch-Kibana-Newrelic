@@ -1,0 +1,31 @@
+---
+- hosts: elastic_kibana
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+     - kibana
+
+- hosts: elastic_nodes
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  vars:
+   es_heap_size: "200m"
+  roles:
+     - elasticsearch_nodes
+     - newrelic
+
+- hosts: elastic_nodes_master
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  vars:
+   es_heap_size: "200m"
+  roles:
+     - elasticsearch_master
+     - newrelic
+

@@ -1,0 +1,63 @@
+---
+- name: setup agent repo keys
+  apt_key: 
+    url: https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg
+    state: present
+
+- name: Confirm Debian apt-transport-https is present
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: setup agent repo reference
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt xenial main"
+    state: present
+    update_cache: true
+
+- name: install agent newrelic
+  package:
+    name: newrelic-infra
+    state: present
+    
+- name: Ensure newrelic is started and enabled at boot.
+  service:
+    name: newrelic-infra
+    state: started
+    enabled: true
+    
+- name: Copy newrelic configuration.
+  template:
+    src: newrelic-infra.yml.j2
+    dest: /etc/newrelic-infra.yml
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 
+    - restart newrelic-infra
+
+- name: Install on-host integrations NewRelic with ES
+  package:
+    name: nri-elasticsearch
+    state: present
+    update_cache: true
+
+- name: Copy elasticsearch-configuration
+  template:
+    src: elastic-searchmaster.yml.j2
+    dest: /etc/newrelic-infra/integrations.d/elasticsearch-config.yml
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 
+    - restart newrelic-infra
+
+- name: Copy elasticsearch-configuration
+  template:
+    src: elastic-searchdata.yml.j2
+    dest: /etc/newrelic-infra/integrations.d/elasticsearch-config.yml
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 
+    - restart newrelic-infra
