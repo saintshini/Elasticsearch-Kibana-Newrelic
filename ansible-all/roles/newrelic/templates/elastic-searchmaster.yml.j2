@@ -7,9 +7,9 @@ instances:
       cluster_environment: production #<A way to further specify which cluster we are gathering data for, example: 'staging'>
       config_path: /etc/elasticsearch/elasticsearch.yml #<absolute path to the ElasticSearch configuration .yml file. (default "/etc/elasticsearch/elasticsearch.yml")>
       hostname: localhost #<hostname or IP where Elasticsearch Node is running. (default "localhost")>
-      local_hostname: 172.31.18.49 #<(Optional) Hostname or IP of the Elasticsearch node from which to collect inventory data. (default "localhost"). Should only be set if you do not wish to collect inventory data against localhost>
-      username: <username for accessing Elasticsearch Node>
-      password: <password for the given user.>
+      local_hostname: {{ IP }} #<(Optional) Hostname or IP of the Elasticsearch node from which to collect inventory data. (default "localhost"). Should only be set if you do not wish to collect inventory data against localhost>
+      username: elastic #<username for accessing Elasticsearch Node>
+      password: changeme #<password for the given user.>
       port: 9200 #<port on which Elasticsearch Node is listening. (default 9200)>
       timeout: <timeout in seconds for an API call (default 30)>
       use_ssl: <(Optional) true or false to use SSL. If true Certificate bundle must be supplied. (default false)>
