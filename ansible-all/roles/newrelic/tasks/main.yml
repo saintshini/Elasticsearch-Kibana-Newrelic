@@ -51,13 +51,3 @@
     mode: '0644'
   notify: 
     - restart newrelic-infra
-
-- name: Copy elasticsearch-configuration
-  template:
-    src: elastic-searchdata.yml.j2
-    dest: /etc/newrelic-infra/integrations.d/elasticsearch-config.yml
-    owner: root
-    group: root
-    mode: '0644'
-  notify: 
-    - restart newrelic-infra
