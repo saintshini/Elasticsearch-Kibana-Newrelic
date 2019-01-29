@@ -24,12 +24,12 @@
 ## 192.168.1.110
 
 [elastic_nodes_master]
-es-node-master ansible_host=172.31.18.49
+es-node-master ansible_host= {{ IP }}
 [elastic_nodes]
-es-node-data-01 ansible_host=172.31.28.54
-es-node-data-02 ansible_host=172.31.30.36
+es-node-data-01 ansible_host={{ IP }}
+es-node-data-02 ansible_host={{ IP }}
 [elastic_kibana]
-aws-kibana ansible_host=172.31.22.121
+aws-kibana ansible_host={{ IP }}
 
 # If you have multiple hosts following a pattern you can specify
 # them like this:
